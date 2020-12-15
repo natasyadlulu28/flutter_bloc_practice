@@ -10,7 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc_practice/models/models.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 part 'main_page.dart';
 part 'home_page.dart';
 part 'signin_pages.dart';

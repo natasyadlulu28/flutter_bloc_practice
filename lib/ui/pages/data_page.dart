@@ -7,23 +7,15 @@ class DataPage extends StatefulWidget {
 
 class _DataPageState extends State<DataPage> {
 
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Data Page"),
+        title: Text("List Data"),
         centerTitle: true,
         leading: Container(),
       ),
-      body: Stack(
-        children:[
-          Container(
-
-          ),
-        ]
-      ),
+      
     );
   }
 }

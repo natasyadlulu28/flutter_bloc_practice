@@ -10,7 +10,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final ctrlName = TextEditingController();
   final ctrlEmail = TextEditingController();
   final ctrlPassword = TextEditingController();
-
+  bool isLoading = false; 
   @override
   void dispose() {
     ctrlName.dispose();
@@ -27,7 +27,8 @@ class _SignUpPageState extends State<SignUpPage> {
             appBar: AppBar(
               title: Text("Sign Up"),
             ),
-            body: Container(
+            body: Stack(
+              children: [Container(
                 margin: EdgeInsets.all(10),
                 child: ListView(children: <Widget>[
                   Column(
@@ -80,6 +81,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           height: 40,
                         );
                               } else {
+                                setState((){
+                                isLoading = true;
+                              });
                                 String result = await AuthServices.signUp(
                                     ctrlEmail.text,
                                     ctrlPassword.text,
@@ -93,6 +97,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                     textColor: Colors.white,
                                     fontSize: 16.0,
                                   );
+                                  setState((){
+                                isLoading = false;
+                              });
                                   SizedBox(
                           height: 40,
                         );
@@ -105,6 +112,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                     textColor: Colors.white,
                                     fontSize: 16.0,
                                   );
+                                  setState((){
+                                isLoading = false;
+                              });
                                 }
                               }
                             }),
@@ -122,6 +132,20 @@ class _SignUpPageState extends State<SignUpPage> {
                                 }),
                         ),
                       ])
-                ]))));
+                ])),
+                isLoading==true ?
+                  Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: Colors.transparent,
+                    child: SpinKitFadingCircle(
+                      size: 50,
+                      color: Colors.blue,
+                    )
+                    )
+                    :
+                    Container()
+                ])
+                ));
   }
 }

@@ -35,18 +35,12 @@ class AuthServices{
     return msg;
   }
 
-  static Future<String> addProduct(String productName, String productPrice) async{
-    await Firebase.initializeApp();
-    String msg="";
-    try{
-      await auth.(productName: productName, productPrice: productPrice).whenComplete(() => 
-        msg = "success",
-      );
-    }catch(e){
-      msg = e.toString();
-    }
-    
-    return msg;
+  static Future<bool> signOut() async{
+    bool result = false;
+    await auth.signOut().whenComplete(() => 
+      result = true,
+    );
+    return result;
   }
 
 }
