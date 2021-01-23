@@ -19,6 +19,7 @@ class _MainMenuState extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HexColor("A5D6A7"),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -26,7 +27,7 @@ class _MainMenuState extends State<MainMenu> {
         items: const<BottomNavigationBarItem> [
           BottomNavigationBarItem(
             icon: Icon(Icons.add_circle_outline_rounded),
-            label: 'Add Data'
+            label: 'Add Data',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list_rounded),
@@ -39,7 +40,7 @@ class _MainMenuState extends State<MainMenu> {
           
         ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber,
+          selectedItemColor: Colors.green[700],
           onTap: _onItemtapped,
       ),
     );

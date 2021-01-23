@@ -20,6 +20,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Tanpa Bloc"),
+        backgroundColor: HexColor("A5D6A7"),
       ),
       body: Container(
         padding: EdgeInsets.all(16),

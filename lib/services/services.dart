@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc_practice/models/models.dart';
 import 'package:flutter_bloc_practice/extensions/extensions.dart';
 import 'package:image_picker/image_picker.dart';
+
 part 'auth_services.dart';
 part 'user_services.dart';
-part "product_services.dart";
+part 'product_services.dart';

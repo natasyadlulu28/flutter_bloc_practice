@@ -8,6 +8,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("Dengan Bloc"),
+          backgroundColor: HexColor("A5D6A7"),
         ),
         body: Container(
           padding: EdgeInsets.all(16),

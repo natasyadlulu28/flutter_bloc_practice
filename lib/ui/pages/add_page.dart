@@ -6,9 +6,8 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  @override
-  final productName = TextEditingController();
-  final productPrice = TextEditingController();
+  final ctrlName = TextEditingController();
+  final ctrlPrice = TextEditingController();
   bool isLoading = false;
 
   PickedFile imageFile;
@@ -21,170 +20,193 @@ class _AddPageState extends State<AddPage> {
       imageFile = selectedImage;
     });
   }
-  
+
   @override
   void dispose() {
-    productName.dispose();
-    productPrice.dispose();
-    setState(() {
-      imageFile = null;
-    });
+    ctrlName.dispose();
+    ctrlPrice.dispose();
     super.dispose();
   }
 
   void clearForm() {
-    productName.clear();
-    productPrice.clear();
+    ctrlName.clear();
+    ctrlPrice.clear();
     setState(() {
       imageFile = null;
     });
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Add Data"),
-          centerTitle: true,
-          leading: Container(),
-        ),
-        body: Stack(
-                  children: [Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
-              child: ListView(children: <Widget>[
+      appBar: AppBar(
+        title: Text("Add Data"),
+        backgroundColor: HexColor("A5D6A7"),
+        centerTitle: true,
+        leading: Container(),
+      ),
+      body: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: ListView(
+              children: [
                 Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: 20),
-                      TextFormField(
-                          controller: productName,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.shopping_basket_rounded),
-                              labelText: 'Product Name',
-                              hintText: "Write your product name",
-                              border: OutlineInputBorder())),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: productPrice,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.money_rounded),
-                              labelText: 'Price',
-                              hintText: "Set a price",
-                              border: OutlineInputBorder())),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      imageFile == null
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                RaisedButton.icon(
-                                  onPressed: () async{
-                                    chooseImage();
-                                    },
-                                  icon: Icon(Icons.image_rounded),
-                                  label: Text("Choose from galery"),
-                                ),
-                                Text("File not found"),
-                              ],
-                            )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                RaisedButton.icon(
-                                  onPressed: () async {
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: ctrlName,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.add_box),
+                          fillColor: HexColor("A5D6A7"),
+                          focusColor: HexColor("A5D6A7"),
+                          hoverColor: HexColor("A5D6A7"),
+                          labelText: 'Product Name',
+                          hintText: "Write your Product name",
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Colors.white,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                const Radius.circular(50.0),
+                              ))),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      controller: ctrlPrice,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.attach_money),
+                          fillColor: HexColor("A5D6A7"),
+                          focusColor: HexColor("A5D6A7"),
+                          hoverColor: HexColor("A5D6A7"),
+                          labelText: 'Price',
+                          hintText: "Write your Product's Price",
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Colors.white,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                const Radius.circular(50.0),
+                              ))),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    imageFile == null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              RaisedButton.icon(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0),
+                                  ),
+                                  onPressed: () {
                                     chooseImage();
                                   },
-                                  icon: Icon(Icons.image_rounded),
-                                  label: Text("Re-choose from galery"),
+                                  icon: Icon(Icons.image),
+                                  label: Text("Choose from gallery")),
+                              Text("File not Found"),
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              RaisedButton.icon(
+                                  onPressed: () {
+                                    chooseImage();
+                                  },
+                                  icon: Icon(Icons.image),
+                                  label: Text("Rechoose from gallery")),
+                              Semantics(
+                                child: Image.file(
+                                  File(imageFile.path),
+                                  width: 100,
                                 ),
-                                Semantics(
-                                  child: Image.file(File(imageFile.path),
-                                      width: 100),
-                                ),
-                              ],
-                            ),
-                      SizedBox(
-                        height: 20,
+                              ),
+                            ],
+                          ),
+                    SizedBox(height: 40),
+                    RaisedButton(
+                      color: HexColor("A5D6A7"),
+                      textColor: Colors.white,
+                      padding: EdgeInsets.all(15),
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
                       ),
-                      RaisedButton.icon(
-                          icon: Icon(Icons.upload_sharp),
-                          label: Text("Submit"),
-                          textColor: Colors.white,
-                          color: Colors.blue[500],
-                          onPressed: () async {
-                            if (productPrice == "" ||
-                                productName == "" ||
-                                imageFile == null) {
-                              Fluttertoast.showToast(
-                                msg: "Please fill all fields!",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16,
-                              );
-                              SizedBox(
-                                height: 40,
-                              );
-                            } else {
-                              setState((){
-                                isLoading = true;
-                              });
-                              Products product = Products(
-                                  "", productName.text, productPrice.text, "");
-                              bool result = await ProductServices.addProduct(
-                                  product, imageFile);
-                              if (result == true) {
-                                Fluttertoast.showToast(
-                                  msg: "Add Product Successful!",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  backgroundColor: Colors.green,
-                                  textColor: Colors.white,
-                                  fontSize: 16,
-                                );
-                                clearForm();
-                                setState((){
-                                isLoading = false;
-                              });
-                              } else {
-                                Fluttertoast.showToast(
-                                  msg: "Failed! Try Again",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  backgroundColor: Colors.green,
-                                  textColor: Colors.white,
-                                  fontSize: 16,
-                                );
-                                setState((){
-                                isLoading = false;
-                              });
-                              }
-                            }
-                            SizedBox(
-                              height: 40,
+                      child: Text("Add Product"),
+                      onPressed: () async {
+                        if (ctrlName.text == "" ||
+                            ctrlPrice.text == "" ||
+                            imageFile == null) {
+                          Fluttertoast.showToast(
+                            msg: "Please Fill all fields !",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        } else {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          Products product =
+                              Products("", ctrlName.text, ctrlPrice.text, "");
+                          bool result = await ProductServices.addProduct(
+                              product, imageFile);
+                          if (result == true) {
+                            Fluttertoast.showToast(
+                              msg: "Add Product Successful !",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.green,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
                             );
-                          }),
-                    ])
-              ])),
-              isLoading==true ?
-                  Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: Colors.transparent,
-                    child: SpinKitFadingCircle(
-                      size: 50,
-                      color: Colors.blue,
+                            clearForm();
+                            setState(() {
+                              isLoading = false;
+                            });
+                          } else {
+                            Fluttertoast.showToast(
+                              msg: "Failed! Try Again",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+                            setState(() {
+                              isLoading = false;
+                            });
+                          }
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 20,
                     )
-                    )
-                    :
-                    Container()
-
-                  ],));
+                  ],
+                )
+              ],
+            ),
+          ),
+          isLoading == true
+              ? Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: SpinKitFadingCircle(
+                    size: 50,
+                    color: Colors.blue,
+                  ))
+              : Container()
+        ],
+      ),
+    );
   }
 }
